@@ -3,7 +3,8 @@ return ( <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-
        href="#home"
        className="text-lg font-bold tracking-tight text-white"
      >
-MURILO<span className="text-violet-500">.</span> </a>
+      
+    </a>
 
 
     <div className="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
