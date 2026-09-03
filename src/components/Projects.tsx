@@ -1,5 +1,5 @@
 import academiaInicio from "../assets/academiainicio.png";
-import SolarCME from "/home/murilo/PROJETOS/Portifolio/src/assets/solarcme.jpg";
+import SolarCME from "../assets/solarcme.jpg";
 
 function Projects() {
   return (
