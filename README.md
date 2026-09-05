@@ -220,8 +220,8 @@ https://portifolio-5w7zhuw4f-murilotecoteco-s-projects.vercel.app/
 
 # Known Limitations
 
-* The navbar links for `#projetos`, `#stack`, `#sobre` and `#contato` are rendered but their corresponding page sections are not yet implemented, so clicking them has no visible effect.
-* No mobile navigation menu is implemented. On screens narrower than the `md` breakpoint, the navbar links are hidden with no hamburger menu alternative.
+* Project repository/demo links point to the general repositories list; update `src/data/portfolio.ts` with the per-project URLs as they become public.
+* The About timeline, toolchain and Open Source entries are centralized in `src/data/portfolio.ts` and should be kept up to date as new contributions land.
 
 ---
 

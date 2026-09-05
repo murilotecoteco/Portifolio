@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Murilo de Souza Cândido — dev</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,600;0,900;1,300&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0b0e13;          /* cinza-azulado profundo, nunca preto puro */
+    --bg-raise: #10141b;
+    --line: #1d232e;
+    --fg: #e9e7e0;          /* off-white quente */
+    --muted: #8b93a1;
+    --faint: #565f6e;
+    --accent: #eb5e28;      /* laranja queimado — único acento */
+    --accent-hi: #ff8a55;
+    --ok: #3ecf8e;
+
+    --font-display: "Archivo", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-display);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* textura de ruído técnico + brilho quente discreto — nada de grid */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(52rem 30rem at 82% -6%, rgb(235 94 40 / 0.07), transparent 62%),
+      radial-gradient(40rem 26rem at -8% 108%, rgb(62 207 142 / 0.04), transparent 60%);
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.028 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .page { position: relative; z-index: 1; min-height: 100dvh; display: flex; flex-direction: column; }
+
+  /* ---------- nav ---------- */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem clamp(1.2rem, 4vw, 3rem);
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  .wordmark { font-weight: 500; letter-spacing: -0.02em; }
+  .wordmark b { color: var(--accent); font-weight: 500; }
+  .nav-links { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2rem); }
+  .nav-links a {
+    color: var(--muted);
+    position: relative;
+    transition: color 0.18s ease;
+  }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -4px;
+    width: 100%; height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.22s ease;
+  }
+  .nav-links a:hover { color: var(--fg); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-links a.gh:hover { color: var(--accent); }
+  .nav-links a.gh::after { display: none; }
+  .nav-links svg { display: block; width: 17px; height: 17px; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(2rem, 5vh, 4rem) clamp(1.2rem, 4vw, 3rem) 4.5rem;
+  }
+
+  .name { user-select: none; line-height: 0.88; }
+
+  .name .l1 {
+    font-weight: 900;
+    font-size: clamp(3.4rem, 11vw, 8.2rem);
+    letter-spacing: -0.035em;
+  }
+  .name .l2 {
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.5rem, 4.6vw, 3.4rem);
+    color: var(--accent);
+    margin-left: clamp(1.5rem, 14vw, 11rem);
+    margin-top: 0.2em;
+    letter-spacing: 0;
+  }
+  .name .l3 {
+    font-weight: 900;
+    font-size: clamp(3.8rem, 13vw, 9.6rem);
+    letter-spacing: 0.005em;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--fg);
+    margin-top: 0.06em;
+  }
+  .name .ch { display: inline-block; min-width: 0.28em; }
+
+  /* bloco em L: tagline deslocada à direita, presa à base do nome */
+  .pitch {
+    margin-top: clamp(1.8rem, 4vh, 3rem);
+    margin-left: clamp(0rem, 22vw, 20rem);
+    max-width: 36rem;
+    font-weight: 300;
+    font-size: clamp(1.02rem, 1.7vw, 1.3rem);
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  .pitch em { font-style: normal; color: var(--fg); font-weight: 600; }
+  .pitch .u { box-shadow: inset 0 -0.34em rgb(235 94 40 / 0.28); }
+
+  .actions {
+    margin-top: 2.2rem;
+    margin-left: clamp(0rem, 22vw, 20rem);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1.4rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.16s ease, background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+  }
+  .btn .arr { transition: transform 0.2s ease; }
+  .btn:hover .arr { transform: translateX(4px); }
+  .btn:active { transform: translateY(1px); }
+  .btn-solid {
+    background: var(--accent);
+    color: #160b06;
+    font-weight: 500;
+  }
+  .btn-solid:hover { background: var(--accent-hi); }
+  .btn-ghost {
+    border-color: var(--line);
+    color: var(--muted);
+    background: transparent;
+  }
+  .btn-ghost:hover { border-color: var(--fg); color: var(--fg); }
+
+  /* ---------- elementos flutuantes (parallax) ---------- */
+  .float {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--faint);
+    letter-spacing: 0.06em;
+    will-change: transform;
+  }
+
+  /* status — anotação técnica, não pill */
+  .f-status {
+    top: clamp(4.6rem, 9vh, 6.5rem);
+    right: clamp(1.2rem, 4vw, 3rem);
+    text-align: right;
+  }
+  .f-status .row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    color: var(--muted);
+  }
+  .f-status .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--ok);
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+  .f-status .cap { color: var(--faint); margin-top: 0.45rem; }
+  .f-status .cap b { color: var(--ok); font-weight: 500; }
+
+  /* geografia — régua vertical na borda esquerda */
+  .f-geo {
+    left: clamp(0.9rem, 2.4vw, 1.8rem);
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-size: 0.64rem;
+  }
+  .f-geo::before {
+    content: "";
+    display: inline-block;
+    width: 1px; height: 3.2rem;
+    background: var(--line);
+    margin-bottom: 1rem;
+  }
+
+  /* stack — régua vertical na borda direita */
+  .f-stack {
+    right: clamp(0.9rem, 2.4vw, 1.8rem);
+    top: 50%;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    color: var(--muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+  }
+  .f-stack i { font-style: normal; color: var(--accent); padding: 0 0.6em; }
+  .f-stack::after {
+    content: "";
+    display: inline-block;
+    width: 1px; height: 3.2rem;
+    background: var(--line);
+    margin-top: 1rem;
+  }
+
+  /* formação — canto inferior esquerdo */
+  .f-edu {
+    left: clamp(1.2rem, 4vw, 3rem);
+    bottom: 1.6rem;
+  }
+  .f-edu b { color: var(--muted); font-weight: 400; }
+  .f-edu::before {
+    content: "";
+    display: block;
+    width: 2.4rem; height: 1px;
+    background: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  /* indicador de scroll — base central */
+  .scroll-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 1.4rem;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+  .scroll-hint .track {
+    width: 1px; height: 2.6rem;
+    background: var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-hint .track::after {
+    content: "";
+    position: absolute;
+    left: 0; top: -40%;
+    width: 100%; height: 40%;
+    background: var(--accent);
+    animation: fall 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+
+  /* ---------- terminal interativo ---------- */
+  .term {
+    position: absolute;
+    right: clamp(1.2rem, 4vw, 3rem);
+    bottom: 1.6rem;
+    width: min(21rem, calc(100vw - 2.4rem));
+    border: 1px solid var(--line);
+    background: rgb(16 20 27 / 0.92);
+    backdrop-filter: blur(6px);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    will-change: transform;
+  }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.85rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--faint);
+    font-size: 0.68rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .term-bar .tabs { color: var(--accent); }
+  .term-bar .hint { margin-left: auto; letter-spacing: 0.08em; }
+  .term-body {
+    display: none;
+    padding: 0.75rem 0.85rem 0.85rem;
+    max-height: 15rem;
+    overflow-y: auto;
+    line-height: 1.7;
+  }
+  .term.open .term-body { display: block; }
+  .term-out .k { color: var(--accent); }
+  .term-out .ok { color: var(--ok); }
+  .term-out .dim { color: var(--faint); }
+  .term-out a { color: var(--fg); border-bottom: 1px solid var(--accent); }
+  .term-in { display: flex; gap: 0.55rem; align-items: baseline; }
+  .term-in .ps { color: var(--ok); flex: none; }
+  .term-in input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--fg);
+    font: inherit;
+    caret-color: var(--accent);
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgb(62 207 142 / 0.45); }
+    55% { box-shadow: 0 0 0 6px rgb(62 207 142 / 0); }
+  }
+  @keyframes fall {
+    0% { top: -40%; }
+    100% { top: 110%; }
+  }
+
+  /* ---------- responsivo ---------- */
+  @media (max-width: 900px) {
+    .f-geo, .f-stack { display: none; }
+    .pitch, .actions { margin-left: 0; }
+  }
+  @media (max-width: 720px) {
+    .nav-links { gap: 0.68rem; font-size: 0.66rem; }
+    .nav-links a.gh svg { width: 15px; height: 15px; }
+    .f-status { position: static; text-align: left; margin-bottom: 1.6rem; }
+    .f-status .row { justify-content: flex-start; }
+    .hero { padding-bottom: 5.5rem; }
+    .name .l2 { margin-left: clamp(1rem, 10vw, 4rem); }
+    .term {
+      position: static;
+      width: 100%;
+      margin-top: 2.4rem;
+    }
+    .term-body { max-height: 11rem; }
+    .f-edu { position: static; margin-top: 1.8rem; }
+    .hero-inner { display: flex; flex-direction: column; }
+    .scroll-hint { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav aria-label="principal">
+    <a class="wordmark" href="#">murilo<b>.dev</b></a>
+    <div class="nav-links">
+      <a href="#projetos"><span>projetos</span></a>
+      <a href="#open-source"><span>open&nbsp;source</span></a>
+      <a href="#sobre"><span>sobre</span></a>
+      <a href="#contato"><span>contato</span></a>
+      <a class="gh" href="https://github.com/murilotecoteco" target="_blank" rel="noreferrer" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.26 5.66.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <!-- status: anotação técnica no canto -->
+    <div class="float f-status" data-depth="0.35">
+      <div class="row"><span class="dot"></span> system.status — online</div>
+      <div class="cap"><b>aberto a oportunidades</b></div>
+    </div>
+
+    <!-- geografia vertical -->
+    <div class="float f-geo" data-depth="0.18" aria-hidden="true">Paraná, Brasil — UTC−3</div>
+
+    <!-- stack vertical -->
+    <div class="float f-stack" data-depth="0.26">React<i>·</i>TypeScript<i>·</i>Node<i>·</i>C</div>
+
+    <div class="hero-inner">
+      <h1 class="name" id="bigname" aria-label="Murilo de Souza Cândido">
+        <span class="l1" data-scramble>MURILO</span><br />
+        <span class="l2">de Souza</span><br />
+        <span class="l3" data-scramble>CÂNDIDO</span>
+      </h1>
+
+      <p class="pitch">
+        Desmonto <span class="u">sistemas</span> para entender como funcionam.
+        Depois, <em>construo os meus</em> — e contribuo com os dos outros.
+      </p>
+
+      <div class="actions">
+        <a class="btn btn-solid" href="#projetos">
+          ver projetos <span class="arr">→</span>
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/murilotecoteco" target="_blank" rel="noreferrer">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.26 5.66.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+          github <span class="arr">↗</span>
+        </a>
+      </div>
+
+      <!-- terminal que responde a comandos reais -->
+      <section class="term" id="term" aria-label="terminal interativo" data-depth="0.3">
+        <div class="term-bar" id="term-toggle" role="button" tabindex="0" aria-expanded="false">
+          <span class="tabs">┌─[</span> murilo@dev <span class="tabs">]</span>
+          <span class="hint">digite “help”</span>
+        </div>
+        <div class="term-body">
+          <div class="term-out" id="term-out"></div>
+          <div class="term-in">
+            <span class="ps">$</span>
+            <input id="term-input" type="text" autocomplete="off" spellcheck="false"
+                   aria-label="comando" placeholder="help" />
+          </div>
+        </div>
+      </section>
+
+      <!-- formação -->
+      <div class="float f-edu" data-depth="0.22">
+        <b>ifpr</b> — téc. informática p/ internet
+      </div>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <div class="track"></div>
+      scroll
+    </div>
+  </header>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- scramble: o nome embaralha em caracteres técnicos e resolve ---- */
+  var GLYPHS = "#$%&@/\\<>[]=+*";
+  function scramble(el) {
+    if (reduceMotion || el.dataset.busy) return;
+    el.dataset.busy = "1";
+    var finalText = el.dataset.text || el.textContent;
+    el.dataset.text = finalText;
+    var spans = finalText.split("").map(function (ch) {
+      var s = document.createElement("span");
+      s.className = "ch";
+      s.textContent = ch;
+      return s;
+    });
+    el.textContent = "";
+    spans.forEach(function (s) { el.appendChild(s); });
+    var settled = spans.map(function () { return false; });
+    var frame = 0;
+    (function tick() {
+      var done = true;
+      spans.forEach(function (s, i) {
+        if (settled[i]) return;
+        if (frame > i * 3 + 6) { settled[i] = true; s.textContent = finalText[i]; }
+        else { done = false; s.textContent = GLYPHS[(Math.random() * GLYPHS.length) | 0]; }
+      });
+      if (!done) { frame++; requestAnimationFrame(tick); }
+      else { delete el.dataset.busy; }
+    })();
+  }
+  document.querySelectorAll("[data-scramble]").forEach(function (el) {
+    el.addEventListener("pointerenter", function () { scramble(el); });
+    el.addEventListener("click", function () { scramble(el); });
+  });
+
+  /* ---- parallax sutil nos elementos flutuantes (lerp via rAF) ---- */
+  var layers = Array.prototype.slice.call(document.querySelectorAll("[data-depth]"));
+  var tx = 0, ty = 0, cx = 0, cy = 0;
+  if (!reduceMotion && matchMedia("(pointer: fine)").matches) {
+    window.addEventListener("pointermove", function (e) {
+      tx = (e.clientX / window.innerWidth - 0.5) * 2;
+      ty = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive: true });
+    (function loop() {
+      cx += (tx - cx) * 0.06;
+      cy += (ty - cy) * 0.06;
+      layers.forEach(function (el) {
+        var d = parseFloat(el.dataset.depth) || 0;
+        el.style.transform = "translate3d(" + (-cx * 14 * d).toFixed(2) + "px," + (-cy * 10 * d).toFixed(2) + "px,0)";
+      });
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* ---- terminal: parser de comandos de verdade ---- */
+  var term = document.getElementById("term");
+  var toggle = document.getElementById("term-toggle");
+  var out = document.getElementById("term-out");
+  var input = document.getElementById("term-input");
+
+  var esc = function (s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  };
+  var print = function (html) {
+    var div = document.createElement("div");
+    div.innerHTML = html;
+    out.appendChild(div);
+    out.scrollTop = out.scrollHeight;
+  };
+
+  var COMMANDS = {
+    help: function () {
+      print('<span class="dim">comandos:</span> whoami · stack · status · formacao · projetos · github · clear');
+    },
+    whoami: function () {
+      print('Murilo de Souza Cândido — <span class="k">dev front-end</span> em formação.<br /><span class="dim">desmonta sistemas, constrói os seus, contribui com os dos outros.</span>');
+    },
+    stack: function () {
+      print('React <span class="dim">·</span> TypeScript <span class="dim">·</span> Node <span class="dim">·</span> C <span class="dim">— e sempre um terminal aberto</span>');
+    },
+    status: function () {
+      print('<span class="ok">online</span> — aberto a oportunidades');
+    },
+    formacao: function () {
+      print('Téc. Informática p/ Internet — IFPR<br /><span class="dim">+ disciplinas de Sistemas p/ Internet na UTFPR (aluno especial)</span>');
+    },
+    projetos: function () {
+      print('<span class="dim">módulos no ar:</span><br />· academia com pagamentos — <a href="https://academia-com-pagamentos.onrender.com/" target="_blank" rel="noreferrer">demo ↗</a><br />· solar cme monitor — <a href="https://solar-cme-monitor.vercel.app/" target="_blank" rel="noreferrer">demo ↗</a>');
+    },
+    github: function () {
+      print('abrindo <span class="k">github.com/murilotecoteco</span> …');
+      window.open("https://github.com/murilotecoteco", "_blank", "noopener");
+    },
+    sudo: function () {
+      print('<span class="dim">bom tentativo.</span> esse terminal é só uma vitrine — mas a intenção conta.');
+    },
+    clear: function () {
+      out.textContent = "";
+    }
+  };
+  COMMANDS.ls = COMMANDS.help;
+  COMMANDS["formação"] = COMMANDS.formacao;
+
+  function run(raw) {
+    var cmd = raw.trim().toLowerCase();
+    if (!cmd) return;
+    print('<span class="ok">$</span> ' + esc(cmd));
+    var fn = COMMANDS[cmd.split(/\s+/)[0]];
+    if (fn) fn();
+    else print('comando não encontrado: ' + esc(cmd) + ' <span class="dim">— tente “help”</span>');
+  }
+
+  function openTerm(state) {
+    term.classList.toggle("open", state);
+    toggle.setAttribute("aria-expanded", String(state));
+    if (state) setTimeout(function () { input.focus(); }, 60);
+  }
+
+  toggle.addEventListener("click", function () { openTerm(!term.classList.contains("open")); });
+  toggle.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openTerm(!term.classList.contains("open")); }
+  });
+  term.querySelector(".term-body").addEventListener("click", function () { input.focus(); });
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { run(input.value); input.value = ""; }
+  });
+
+  /* boot: abre sozinho no desktop e cumprimenta */
+  print('<span class="dim">bash — sessão iniciada.</span>');
+  if (matchMedia("(min-width: 721px)").matches && !reduceMotion) {
+    setTimeout(function () { openTerm(true); }, 700);
+  }
+})();
+</script>
+</body>
+</html>
