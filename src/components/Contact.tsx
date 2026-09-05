@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Mail } from "lucide-react";
 import { Corners, Dot, GithubIcon } from "./system";
 import { profile } from "../data/portfolio";
 
@@ -73,32 +73,39 @@ function Contact() {
             </span>
           </h2>
 
-          <p className="mt-6 max-w-xl text-sm leading-7 font-light text-dim sm:text-base sm:leading-8">
-            Projetos, contribuições open source, oportunidades de aprender
-            trabalhando — o melhor lugar para me encontrar é o GitHub. Issues,
-            PRs e discussões são sempre bem-vindos.
-          </p>
+            <p className="mt-6 max-w-xl text-sm leading-7 font-light text-dim sm:text-base sm:leading-8">
+              Projetos, contribuições open source, oportunidades de aprender
+              trabalhando — me escreva por e-mail ou me encontre no GitHub.
+              Issues, PRs e discussões são sempre bem-vindos.
+            </p>
 
-          <div className="mt-9 flex flex-wrap gap-4 font-mono text-sm">
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noreferrer"
-              className="group inline-flex items-center gap-2 bg-signal px-6 py-3 font-medium text-contrast transition-colors hover:bg-signal-hi"
-            >
-              <GithubIcon className="size-4" />
-              github.com/murilotecoteco
-              <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
-            <a
-              href={`${profile.github}?tab=repositories`}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 border border-line px-6 py-3 text-dim transition-colors hover:border-ink hover:text-ink"
-            >
-              <span className="text-faint">$</span> ver repositórios
-            </a>
-          </div>
+            <div className="mt-9 flex flex-wrap gap-4 font-mono text-sm">
+              <a
+                href={`mailto:${profile.email}`}
+                className="group inline-flex items-center gap-2 bg-signal px-6 py-3 font-medium text-contrast transition-colors hover:bg-signal-hi"
+              >
+                <Mail className="size-4" />
+                {profile.email}
+                <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 border border-line px-6 py-3 text-dim transition-colors hover:border-ink hover:text-ink"
+              >
+                <GithubIcon className="size-4" />
+                github
+              </a>
+              <a
+                href={`${profile.github}?tab=repositories`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 border border-line px-6 py-3 text-dim transition-colors hover:border-ink hover:text-ink"
+              >
+                <span className="text-faint">$</span> ver repositórios
+              </a>
+            </div>
         </div>
       </div>
 

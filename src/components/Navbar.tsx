@@ -67,9 +67,14 @@ function Navbar() {
       >
         <a
           href="#home"
-          className="font-mono text-sm font-medium tracking-tight text-ink"
+          className="flex items-baseline gap-1 font-mono text-sm font-medium tracking-tight text-ink"
         >
           murilo<span className="text-signal">.dev</span>
+          <span
+            aria-hidden="true"
+            className="ml-0.5 inline-block h-3.5 w-[7px] translate-y-[1px] bg-signal animate-caret"
+          />
+          <span className="sr-only">— voltar ao início</span>
         </a>
 
         {/* desktop: links inline */}
