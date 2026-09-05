@@ -1,6 +1,6 @@
 import academiaInicio from "../assets/academiainicio.webp";
 import SolarCME from "../assets/solarcme.webp";
-import taskManager from "../assets/taskmanager.png";
+import taskManager from "../assets/taskmanager.webp";
 
 export const profile = {
   name: "Murilo de Souza Cândido",
@@ -28,7 +28,8 @@ export type Project = {
   link: string;
   demo?: string;
   featured?: boolean;
-  detail: string;
+  /** decisões técnicas reais — exibidas como bloco de diff */
+  decisions: string[];
 };
 
 export const projects: Project[] = [
@@ -44,7 +45,13 @@ export const projects: Project[] = [
     link: "https://github.com/murilotecoteco/gym-membership-payments",
     demo: "https://academia-com-pagamentos.onrender.com/",
     featured: true,
-    detail: "assinaturas recorrentes · webhooks · auth",
+    decisions: [
+      "jwt em todas as rotas — user_id vem do token, nunca do body",
+      "webhook com assinatura verificada e processamento idempotente",
+      "plan_id em allowlist server-side — price_id nunca exposto ao cliente",
+      "rate limiting (10 req/min) no checkout e no billing portal",
+      "suite offline: jest + supertest com mocks de stripe/supabase",
+    ],
   },
   {
     id: "mod-02",
@@ -57,7 +64,12 @@ export const projects: Project[] = [
     image: SolarCME,
     link: "https://github.com/murilotecoteco/cme-dashboard",
     demo: "https://solar-cme-monitor.vercel.app/",
-    detail: "dados espaciais · visualização · alertas",
+    decisions: [
+      "edge function como proxy — a api key da nasa nunca chega ao cliente",
+      "eventos persistidos em postgres + histórico de buscas",
+      "gráficos e estatísticas calculados por evento",
+      "testes com fake timers: vitest + testing library",
+    ],
   },
   {
     id: "mod-03",
@@ -70,7 +82,11 @@ export const projects: Project[] = [
     image: taskManager,
     link: "https://github.com/murilotecoteco/task-manager-nextjs-react",
     demo: "https://gerenciador-de-tarefas-one-pearl.vercel.app/",
-    detail: "crud · auth · estado global",
+    decisions: [
+      "persistência client-side via localstorage — foco na arquitetura front",
+      "filtros por status + dashboard de estatísticas",
+      "dark/light theme toggle + toast notifications",
+    ],
   },
 ];
 

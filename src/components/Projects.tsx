@@ -71,10 +71,23 @@ function Projects() {
                     {p.description}
                   </p>
 
-                  {/* dependências como statement de import */}
-                  <div className="mt-5 border-l-2 border-signal/40 bg-shell/70 py-2.5 pr-3 pl-3.5">
-                    <p className="mono-label text-faint">dependencies</p>
-                    <p className="mt-1.5 font-mono text-[11px] leading-5 break-words text-dim">
+                  {/* decisões técnicas como diff + dependências como import */}
+                  <div className="mt-5 space-y-2.5 border-l-2 border-signal/40 bg-shell/70 py-2.5 pr-3 pl-3.5">
+                    <div>
+                      <p className="mono-label text-faint">decisions.diff</p>
+                      <ul className="mt-1.5 space-y-1">
+                        {p.decisions.map((d) => (
+                          <li
+                            key={d}
+                            className="font-mono text-[11px] leading-5 text-dim"
+                          >
+                            <span className="mr-1.5 text-ok">+</span>
+                            {d}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <p className="border-t border-line/60 pt-2.5 font-mono text-[11px] break-words text-dim">
                       <span className="text-signal">import</span> {"{ "}
                       {p.tech.join(", ")}{" "}
                       <span className="text-line-strong">{"}"}</span>{" "}
