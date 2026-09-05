@@ -16,7 +16,26 @@ const EXIT_EASE = [0.4, 0, 1, 1] as const;
 
 function Navbar() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+
+  /* seção visível → estado ativo no menu */
+  useEffect(() => {
+    const sections = links
+      .map((l) => document.querySelector<HTMLElement>(l.href))
+      .filter((el): el is HTMLElement => !!el);
+    if (!sections.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        }
+      },
+      { rootMargin: "-35% 0px -55% 0px" },
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
 
   /* fecha com Escape e devolve o foco ao botão (padrão do menu-ilha) */
   useEffect(() => {
@@ -83,7 +102,12 @@ function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              className="relative whitespace-nowrap transition-colors after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-signal after:transition-transform hover:text-ink hover:after:scale-x-100"
+              aria-current={active === l.href ? "true" : undefined}
+              className={`relative whitespace-nowrap transition-colors after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:bg-signal after:transition-transform hover:text-ink hover:after:scale-x-100 ${
+                active === l.href
+                  ? "text-ink after:scale-x-100"
+                  : "after:scale-x-0"
+              }`}
             >
               {l.label}
             </a>
@@ -199,7 +223,9 @@ function Navbar() {
                   <a
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="group flex items-center gap-2.5 border-b border-line/50 px-3 py-3.5 text-dim transition-colors last:border-b-0 hover:bg-raise hover:text-signal"
+                    className={`group flex items-center gap-2.5 border-b border-line/50 px-3 py-3.5 transition-colors last:border-b-0 hover:bg-raise hover:text-signal ${
+                      active === l.href ? "text-signal" : "text-dim"
+                    }`}
                   >
                     <span className="text-faint transition-colors group-hover:text-signal">
                       $

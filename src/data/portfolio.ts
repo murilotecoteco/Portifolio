@@ -1,5 +1,6 @@
 import academiaInicio from "../assets/academiainicio.webp";
 import SolarCME from "../assets/solarcme.webp";
+import taskManager from "../assets/taskmanager.png";
 
 export const profile = {
   name: "Murilo de Souza Cândido",
@@ -40,7 +41,7 @@ export const projects: Project[] = [
     type: "full stack",
     status: { label: "finalizado", state: "ok" },
     image: academiaInicio,
-    link: "https://github.com/murilotecoteco?tab=repositories",
+    link: "https://github.com/murilotecoteco/gym-membership-payments",
     demo: "https://academia-com-pagamentos.onrender.com/",
     featured: true,
     detail: "assinaturas recorrentes · webhooks · auth",
@@ -54,9 +55,22 @@ export const projects: Project[] = [
     type: "data app",
     status: { label: "finalizado", state: "ok" },
     image: SolarCME,
-    link: "https://github.com/murilotecoteco?tab=repositories",
+    link: "https://github.com/murilotecoteco/cme-dashboard",
     demo: "https://solar-cme-monitor.vercel.app/",
     detail: "dados espaciais · visualização · alertas",
+  },
+  {
+    id: "mod-03",
+    title: "Task Manager",
+    description:
+      "Aplicação de gerenciamento de tarefas construída com Next.js e TypeScript, com autenticação e estado global.",
+    tech: ["Next.js", "React", "TypeScript"],
+    type: "web app",
+    status: { label: "finalizado", state: "ok" },
+    image: taskManager,
+    link: "https://github.com/murilotecoteco/task-manager-nextjs-react",
+    demo: "https://gerenciador-de-tarefas-one-pearl.vercel.app/",
+    detail: "crud · auth · estado global",
   },
 ];
 

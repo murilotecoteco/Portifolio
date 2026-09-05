@@ -199,8 +199,18 @@ function Hero() {
         </motion.h1>
 
         <motion.p
+          {...enter(0.2)}
+          className="mt-6 font-mono text-xs tracking-[0.18em] text-faint uppercase lg:ml-[22vw]"
+        >
+          front-end<span className="px-2 text-signal">·</span>React
+          <span className="px-2 text-signal">·</span>TypeScript
+          <span className="px-2 text-signal">·</span>Node
+          <span className="px-2 text-signal">·</span>Angular
+        </motion.p>
+
+        <motion.p
           {...enter(0.25)}
-          className="mt-8 max-w-[36rem] text-[clamp(1.02rem,1.7vw,1.3rem)] leading-[1.65] font-light text-dim lg:ml-[22vw]"
+          className="mt-6 max-w-[36rem] text-[clamp(1.02rem,1.7vw,1.3rem)] leading-[1.65] font-light text-dim lg:ml-[22vw]"
         >
           Desmonto{" "}
           <span className="shadow-[inset_0_-0.34em_rgb(235_94_40_/_0.28)]">

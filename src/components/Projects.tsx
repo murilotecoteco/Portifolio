@@ -10,7 +10,7 @@ function Projects() {
         aria-hidden="true"
         className="absolute top-1/2 -left-9 hidden -translate-y-1/2 rotate-180 font-mono text-[0.62rem] tracking-[0.32em] text-faint uppercase [writing-mode:vertical-rl] xl:block"
       >
-        ls ~/portfolio/projetos — 02 módulos
+        ls ~/portfolio/projetos — 03 módulos
       </p>
 
       <div className="mx-auto max-w-6xl px-6">
