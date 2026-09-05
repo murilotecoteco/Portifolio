@@ -187,14 +187,14 @@ function Hero() {
         >
           <Scramble
             text="MURILO"
-            className="block text-[clamp(3.4rem,11vw,8.2rem)] font-black tracking-[-0.035em]"
+            className="block whitespace-nowrap text-[clamp(3rem,11vw,8.2rem)] font-black tracking-[-0.035em]"
           />
           <span className="mt-1.5 block ml-[clamp(1.5rem,14vw,11rem)] text-[clamp(1.5rem,4.6vw,3.4rem)] font-light text-signal italic">
             de Souza
           </span>
           <Scramble
             text="CÂNDIDO"
-            className="mt-1 block text-[clamp(3.8rem,13vw,9.6rem)] font-black text-transparent [-webkit-text-stroke:2px_var(--color-ink)]"
+            className="mt-1 block whitespace-nowrap text-[clamp(3.2rem,13vw,9.6rem)] font-black text-transparent [-webkit-text-stroke:2px_var(--color-ink)]"
           />
         </motion.h1>
 
