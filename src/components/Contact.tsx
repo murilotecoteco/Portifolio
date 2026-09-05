@@ -82,11 +82,11 @@ function Contact() {
             <div className="mt-9 flex flex-wrap gap-4 font-mono text-sm">
               <a
                 href={`mailto:${profile.email}`}
-                className="group inline-flex items-center gap-2 bg-signal px-6 py-3 font-medium text-contrast transition-colors hover:bg-signal-hi"
+                className="group inline-flex max-w-full items-center gap-2 bg-signal px-4 py-3 text-xs font-medium text-contrast transition-colors hover:bg-signal-hi sm:px-6 sm:text-sm"
               >
-                <Mail className="size-4" />
-                {profile.email}
-                <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <Mail className="size-4 shrink-0" />
+                <span className="break-all">{profile.email}</span>
+                <ArrowUpRight className="size-4 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
               <a
                 href={profile.github}
