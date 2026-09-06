@@ -27,7 +27,7 @@ function Projects() {
             return (
               <article
                 key={p.id}
-                className="group relative flex h-full flex-col border border-line bg-panel transition-colors duration-200 hover:border-line-strong"
+                className="group relative flex h-full cursor-pointer flex-col border border-line bg-panel transition-colors duration-200 hover:border-line-strong"
               >
                 {/* número do módulo como marca d'água estrutural */}
                 <span
@@ -102,7 +102,7 @@ function Projects() {
                       href={p.link}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-dim transition-colors hover:text-signal"
+                      className="relative z-10 inline-flex items-center gap-1.5 text-dim transition-colors hover:text-signal"
                     >
                       <span className="text-faint">$</span> open código-fonte
                       <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -112,10 +112,10 @@ function Projects() {
                         href={p.demo}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 text-dim transition-colors hover:text-ok"
+                        aria-label={`Visitar site do projeto ${p.title}`}
+                        className="inline-flex items-center gap-1.5 text-dim transition-colors after:absolute after:inset-0 after:content-[''] hover:text-ok"
                       >
-                        <span className="text-faint">$</span> open{" "}
-                        <span className="text-ink">demo</span>
+                        <span className="text-faint">$</span> visitar
                         <span
                           aria-hidden="true"
                           className="inline-block size-1.5 rounded-full bg-ok"
