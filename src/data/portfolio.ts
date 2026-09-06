@@ -147,6 +147,11 @@ export const timeline = [
     text: "Lógica, redes, bancos de dados — e a descoberta do Linux, que mudou minha relação com tecnologia: deixei de ser só usuário e comecei a mexer nos parafusos.",
   },
   {
+    version: "v0.4",
+    title: "Caixa Econômica Federal — estágio",
+    text: "Primeiro contato com um ambiente institucional de verdade: processos formais, sistemas internos, documentos com responsabilidade real. Suporte de informática e apoio administrativo em uma das maiores instituições financeiras públicas do Brasil — onde aprendi que software existe para servir processos, e processos existem para servir pessoas.",
+  },
+  {
     version: "v0.5",
     title: "Desenvolvimento web",
     text: "Primeiros projetos web de verdade. Aprendi React, TypeScript e que a parte difícil raramente é escrever código — é fazer tudo funcionar junto.",
