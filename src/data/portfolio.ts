@@ -59,7 +59,7 @@ export const projects: Project[] = [
     title: "Solar CME Monitor",
     description:
       "Aplicação web para monitoramento de eventos solares (CMEs) e previsão de impacto em infraestrutura crítica.",
-    tech: ["React", "TypeScript", "APIs públicas", "PostgreSQL", "Charts"],
+    tech: ["React", "Vite", "JavaScript", "TypeScript", "CSS3", "Supabase", "PostgreSQL", "Deno", "Vercel", "Git", "Vitest", "GitHub Actions"],
     type: "data app",
     status: { label: "finalizado", state: "ok" },
     image: SolarCME,
