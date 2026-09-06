@@ -77,7 +77,7 @@ export const projects: Project[] = [
     title: "Task Manager",
     description:
       "Aplicação de gerenciamento de tarefas construída com Next.js e TypeScript, com autenticação e estado global.",
-    tech: ["Next.js", "React", "TypeScript"],
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel", "Git", "GitHub"],
     type: "web app",
     status: { label: "finalizado", state: "ok" },
     image: taskManager,
