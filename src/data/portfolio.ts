@@ -38,7 +38,7 @@ export const projects: Project[] = [
     title: "Academia com Pagamentos",
     description:
       "Aplicação web full stack para gerenciamento de planos de academia e assinaturas recorrentes, com autenticação, checkout e webhooks.",
-    tech: ["React", "TypeScript", "Stripe", "Supabase", "PostgreSQL"],
+    tech: ["HTML5", "CSS3", "JavaScript", "Node.js", "Express", "Zod", "Supabase", "Stripe", "Jest", "Git", "GitHub", "Render"],
     type: "full stack",
     status: { label: "finalizado", state: "ok" },
     image: academiaInicio,
@@ -51,6 +51,7 @@ export const projects: Project[] = [
       "plan_id em allowlist server-side — price_id nunca exposto ao cliente",
       "rate limiting (10 req/min) no checkout e no billing portal",
       "suite offline: jest + supertest com mocks de stripe/supabase",
+      "ci/cd no github actions: testes rodam a cada push",
     ],
   },
   {
