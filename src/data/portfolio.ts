@@ -105,7 +105,7 @@ export const contributions: Contribution[] = [
     title: "feat: add navigation sidebar component",
     repo: "Tecnologia-da-Informacao-BR/Calendar",
     date: "2026-09-05",
-    state: "open",
+    state: "merged",
     url: "https://github.com/Tecnologia-da-Informacao-BR/Calendar/pull/168",
   },
   {
