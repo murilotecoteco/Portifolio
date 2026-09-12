@@ -102,6 +102,14 @@ export type Contribution = {
 
 export const contributions: Contribution[] = [
   {
+    pr: "#186",
+    title: "refactor(frontend): extract shared password validation",
+    repo: "Tecnologia-da-Informacao-BR/Calendar",
+    date: "2026-09-12",
+    state: "merged",
+    url: "https://github.com/Tecnologia-da-Informacao-BR/Calendar/pull/186",
+  },
+  {
     pr: "#168",
     title: "feat: add navigation sidebar component",
     repo: "Tecnologia-da-Informacao-BR/Calendar",
