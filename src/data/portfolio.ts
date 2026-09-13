@@ -189,11 +189,11 @@ export const timeline = [
 export const toolchain = [
   {
     group: "linguagens",
-    items: ["TypeScript", "JavaScript", "Dart", "Python", "SQL"],
+    items: ["TypeScript", "JavaScript", "Python", "SQL"],
   },
   {
-    group: "front-end & mobile",
-    items: ["React", "Angular", "Flutter", "Tailwind CSS", "Vite"],
+    group: "front-end",
+    items: ["React", "Angular", "Tailwind CSS", "Vite"],
   },
   {
     group: "back-end",
