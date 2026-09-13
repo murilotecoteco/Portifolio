@@ -79,7 +79,6 @@ function Terminal() {
         <>
           React <span className="text-faint">·</span> TypeScript{" "}
           <span className="text-faint">·</span> Angular{" "}
-          <span className="text-faint">·</span> Flutter{" "}
           <span className="text-faint">— e sempre um terminal aberto</span>
         </>,
       );

@@ -57,7 +57,7 @@ export function Corners({ className = "" }: { className?: string }) {
   const base =
     "pointer-events-none absolute size-3 border-signal/50 transition-all duration-300";
   return (
-    <span aria-hidden="true" className={className}>
+    <span aria-hidden="true" className={`pointer-events-none ${className}`}>
       <span className={`${base} top-0 left-0 border-t border-l`} />
       <span className={`${base} top-0 right-0 border-t border-r`} />
       <span className={`${base} bottom-0 left-0 border-b border-l`} />

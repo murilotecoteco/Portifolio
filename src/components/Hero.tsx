@@ -180,7 +180,6 @@ function Hero() {
         >
           React<span className="py-1.5 text-signal">·</span>TypeScript
           <span className="py-1.5 text-signal">·</span>Angular
-          <span className="py-1.5 text-signal">·</span>Flutter
           <span className="mt-4 block h-12 w-px bg-line" />
         </div>
       </div>
