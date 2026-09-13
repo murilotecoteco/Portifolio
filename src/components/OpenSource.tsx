@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Check, Copy, GitMerge, GitPullRequest } from "lucide-react";
+import { motion } from "framer-motion";
 import { SectionHead } from "./system";
 import { contributions } from "../data/portfolio";
 
@@ -29,7 +30,7 @@ function OpenSource() {
   return (
     <section
       id="open-source"
-      className="relative border-y border-line bg-panel/40 py-24 sm:py-32"
+      className="relative border-y border-line bg-panel/40 py-24 sm:py-32 overflow-hidden"
     >
       <p
         aria-hidden="true"
@@ -37,6 +38,43 @@ function OpenSource() {
       >
         git log --author=murilotecoteco
       </p>
+
+      {/* Ícones flutuantes */}
+      <motion.div
+        animate={{ y: [0, -15, 0], rotate: [0, 5, -5, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-32 left-[10%] hidden lg:block opacity-20 hover:opacity-100 transition-opacity duration-500 pointer-events-auto"
+      >
+        {/* Angular */}
+        <svg viewBox="0 0 250 250" className="size-24 drop-shadow-2xl">
+          <path fill="#DD0031" d="M125 30L31.9 63.2l14.2 123.1L125 230l78.9-43.7 14.2-123.1z"/>
+          <path fill="#FFFFFF" d="M125 52.1L66.8 182.6h21.7l11.7-29.2h49.4l11.7 29.2H183L125 52.1zm17 83.3h-34l17-40.9 17 40.9z"/>
+        </svg>
+      </motion.div>
+
+      <motion.div
+        animate={{ y: [0, 20, 0], rotate: [0, -10, 10, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="absolute top-64 right-[8%] hidden lg:block opacity-20 hover:opacity-100 transition-opacity duration-500 pointer-events-auto"
+      >
+        {/* Tailwind */}
+        <svg viewBox="0 0 24 24" fill="none" className="size-20 drop-shadow-2xl">
+          <path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z" fill="#06B6D4"/>
+        </svg>
+      </motion.div>
+
+      <motion.div
+        animate={{ y: [0, -20, 0], rotate: [0, 10, -10, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        className="absolute bottom-16 left-[50%] hidden lg:block opacity-20 hover:opacity-100 transition-opacity duration-500 pointer-events-auto"
+      >
+        {/* TypeScript */}
+        <svg viewBox="0 0 24 24" className="size-16 drop-shadow-2xl">
+          <path fill="#3178C6" d="M2 2h20v20H2z"/>
+          <path fill="#FFF" d="M13.82 17.58c-1.4 0-2.43-.37-3.1-.96l.73-1.6c.64.44,1.49.82,2.4.82.91 0,1.38-.34,1.38-.85 0-.58-.64-.81-1.88-1.25-1.55-.57-2.61-1.39-2.61-2.9 0-1.58,1.21-2.82,3.31-2.82,1.33 0,2.16.34,2.83.78l-.7 1.54c-.58-.37-1.29-.68-2.11-.68-.84 0-1.23.41-1.23.82 0 .56.65.75,1.91 1.23 1.56.59 2.58 1.34 2.58 2.91 0 1.63-1.2 2.96-3.51 2.96zm-7.69-7.25h3.69v1.65h-1.88v6.79H6.13z"/>
+        </svg>
+      </motion.div>
+
 
       <div className="mx-auto max-w-6xl px-6">
         <SectionHead
