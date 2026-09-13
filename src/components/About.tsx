@@ -36,6 +36,8 @@ function About() {
                 <dd className="text-dim">Paraná, Brasil — UTC−3</dd>
                 <dt className="text-faint">status:</dt>
                 <dd className="text-ok">{profile.availability}</dd>
+                <dt className="text-faint">idioma:</dt>
+                <dd className="text-dim">Inglês Avançado</dd>
                 <dt className="text-faint">kernel:</dt>
                 <dd className="text-dim">Linux · software livre</dd>
               </dl>

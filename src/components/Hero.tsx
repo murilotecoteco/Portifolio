@@ -217,6 +217,8 @@ function Hero() {
           <span>Node</span>
           <span aria-hidden="true" className="px-2 text-signal">·</span>
           <span>Angular</span>
+          <span aria-hidden="true" className="px-2 text-signal">·</span>
+          <span>Inglês Avançado</span>
         </motion.p>
 
         <motion.p
