@@ -223,9 +223,9 @@ function OpenSource() {
                 </span>
               )}
             </p>
-            <ol className="relative border-l border-line pl-6 font-mono">
+            <ol className="grid grid-cols-1 gap-x-4 font-mono sm:grid-cols-2">
               {contributions.map((c) => (
-                <li key={c.pr} className="relative">
+                <li key={c.pr} className="relative border-l border-line pl-6">
                   {/* nó do grafo */}
                   <span
                     aria-hidden="true"
@@ -278,7 +278,7 @@ function OpenSource() {
                 </li>
               ))}
               {/* HEAD */}
-              <li aria-hidden="true" className="relative pt-1">
+              <li aria-hidden="true" className="relative col-span-full border-l border-line pl-6 pt-1">
                 <span className="absolute top-3.5 -left-[31px] flex size-[13px] items-center justify-center rounded-full border border-line bg-panel text-[8px] text-faint">
                   *
                 </span>
