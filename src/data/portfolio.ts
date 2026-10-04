@@ -180,6 +180,11 @@ export const timeline = [
     text: "Três disciplinas, três camadas: Interface e Linha de Comandos (Linux, Bash e C — o sistema por dentro), Organização de Computadores (o hardware por baixo de tudo) e Computação e Sociedade (segurança e o impacto do que construímos).",
   },
   {
+    version: "v1.3",
+    title: "Maximus Tecidos — estágio",
+    text: "Atuação administrativo-tecnológica no dia a dia de um e-commerce: gerenciamento de produtos, preços e vendas em ERPs e marketplaces. Com auxílio do Claude Code, desenvolvi soluções internas em Node.js, React e Python — incluindo integrações com a API do Mercado Livre e um sistema centralizado para gestão de múltiplos canais de venda. O trabalho real onde o código precisa funcionar, não só compilar.",
+  },
+  {
     version: "next",
     title: "Em construção",
     text: "Aprofundar em backend e infraestrutura, contribuir mais e continuar construindo. Esta versão nunca fica pronta — e é esse o plano.",

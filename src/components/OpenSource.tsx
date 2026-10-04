@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Check, Copy, GitMerge, GitPullRequest } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionHead } from "./system";
-import { contributions } from "../data/portfolio";
+import { type Contribution } from "../data/portfolio";
 
 /* hash determinístico estilo commit, derivado do número do PR */
 function hashOf(seed: string) {
@@ -15,6 +15,8 @@ const CLONE_CMD =
   "git clone https://github.com/Tecnologia-da-Informacao-BR/Calendar.git";
 
 function OpenSource() {
+  const [ contributions, setContributions] = useState<Contribution[]>([]);
+  const [ isLoading, setIsLoading] = useState(true);
   const merged = contributions.filter((c) => c.state === "merged").length;
   const open = contributions.length - merged;
   const [copied, setCopied] = useState(false);
