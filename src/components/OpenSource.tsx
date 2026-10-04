@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { Check, Copy, GitMerge, GitPullRequest } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionHead } from "./system";
-import { contributions as staticContributions, type Contribution } from "../data/portfolio";
+import { type Contribution } from "../data/portfolio";
 
 /* hash determinístico estilo commit, derivado do número do PR */
 function hashOf(seed: string) {
@@ -40,7 +40,7 @@ function mapPR(pr: GithubPR): Contribution {
 }
 
 function OpenSource() {
-  const [contributions, setContributions] = useState<Contribution[]>(staticContributions);
+  const [contributions, setContributions] = useState<Contribution[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const merged = contributions.filter((c) => c.state === "merged").length;
   const open = contributions.length - merged;
@@ -151,16 +151,16 @@ function OpenSource() {
             <div className="mt-8 grid grid-cols-3 gap-px border border-line bg-line font-mono">
               {[
                 {
-                  v: String(contributions.length).padStart(2, "0"),
+                  v: isLoading ? "--" : String(contributions.length).padStart(2, "0"),
                   k: "prs",
                   extra: null,
                 },
                 {
-                  v: String(merged).padStart(2, "0"),
+                  v: isLoading ? "--" : String(merged).padStart(2, "0"),
                   k: "merged",
                   extra: null,
                 },
-                { v: String(open).padStart(2, "0"), k: "open", extra: "caret" },
+                { v: isLoading ? "--" : String(open).padStart(2, "0"), k: "open", extra: "caret" },
               ].map((s) => (
                 <div key={s.k} className="bg-panel px-4 py-5 text-center">
                   <p className="text-3xl font-semibold tracking-tight text-ink">
