@@ -55,7 +55,10 @@ function OpenSource() {
       .then((r) => r.json())
       .then((data: { items?: GithubPR[] }) => {
         if (Array.isArray(data.items) && data.items.length > 0) {
-          setContributions(data.items.map(mapPR));
+          const filtered = data.items.filter(
+            (pr) => pr.state === "open" || pr.pull_request.merged_at !== null
+          );
+          setContributions(filtered.map(mapPR));
         }
       })
       .catch(() => { /* mantém fallback estático em caso de erro */ })
