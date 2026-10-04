@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Check, Copy, GitMerge, GitPullRequest } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionHead } from "./system";
-import { contributions } from "../data/portfolio";
+import { contributions as staticContributions, type Contribution } from "../data/portfolio";
 
 /* hash determinístico estilo commit, derivado do número do PR */
 function hashOf(seed: string) {
@@ -14,11 +14,53 @@ function hashOf(seed: string) {
 const CLONE_CMD =
   "git clone https://github.com/Tecnologia-da-Informacao-BR/Calendar.git";
 
+const GITHUB_USER = "murilotecoteco";
+
+interface GithubPR {
+  number: number;
+  title: string;
+  state: "open" | "closed";
+  created_at: string;
+  html_url: string;
+  repository_url: string;
+  pull_request: { merged_at: string | null };
+}
+
+function mapPR(pr: GithubPR): Contribution {
+  const repoPath = pr.repository_url.replace("https://api.github.com/repos/", "");
+  const state: Contribution["state"] = pr.pull_request.merged_at ? "merged" : "open";
+  return {
+    pr: `#${pr.number}`,
+    title: pr.title,
+    repo: repoPath,
+    date: pr.created_at.slice(0, 10),
+    state,
+    url: pr.html_url,
+  };
+}
+
 function OpenSource() {
+  const [contributions, setContributions] = useState<Contribution[]>(staticContributions);
+  const [isLoading, setIsLoading] = useState(true);
   const merged = contributions.filter((c) => c.state === "merged").length;
   const open = contributions.length - merged;
   const [copied, setCopied] = useState(false);
   const timer = useRef<number>(0);
+
+  useEffect(() => {
+    const url =
+      `https://api.github.com/search/issues?q=type:pr+author:${GITHUB_USER}&sort=created&order=desc&per_page=30`;
+
+    fetch(url, { headers: { Accept: "application/vnd.github+json" } })
+      .then((r) => r.json())
+      .then((data: { items?: GithubPR[] }) => {
+        if (Array.isArray(data.items) && data.items.length > 0) {
+          setContributions(data.items.map(mapPR));
+        }
+      })
+      .catch(() => { /* mantém fallback estático em caso de erro */ })
+      .finally(() => setIsLoading(false));
+  }, []);
 
   const copy = () => {
     navigator.clipboard?.writeText(CLONE_CMD).catch(() => {});
@@ -163,9 +205,20 @@ function OpenSource() {
           <div>
             <p
               aria-hidden="true"
-              className="mb-3 font-mono text-[0.7rem] text-faint"
+              className="mb-3 font-mono text-[0.7rem] text-faint flex items-center gap-2"
             >
               $ git log --oneline --author=murilotecoteco
+              {isLoading ? (
+                <span className="font-mono text-[0.65rem] text-faint animate-pulse">fetching…</span>
+              ) : (
+                <span className="inline-flex items-center gap-1.5 text-[0.62rem] text-ok">
+                  <span className="relative flex size-1.5">
+                    <span className="animate-ping absolute inline-flex size-full rounded-full bg-ok opacity-75" />
+                    <span className="relative inline-flex size-1.5 rounded-full bg-ok" />
+                  </span>
+                  live
+                </span>
+              )}
             </p>
             <ol className="relative border-l border-line pl-6 font-mono">
               {contributions.map((c) => (
